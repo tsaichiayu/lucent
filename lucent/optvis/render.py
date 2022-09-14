@@ -90,7 +90,7 @@ def render_vis(
 
     images = []
     try:
-        for i in tqdm(range(1, max(thresholds) + 1), progress=True):
+        for i in tqdm(range(1, max(thresholds) + 1)):
             def closure():
                 optimizer.zero_grad()
                 try:
