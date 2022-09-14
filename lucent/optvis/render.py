@@ -32,7 +32,7 @@ def render_vis(
     param_f=None,
     optimizer=None,
     transforms=None,
-    thresholds=(150,),
+    thresholds=(512,),
     verbose=False,
     preprocess=True,
     progress=True,
@@ -90,7 +90,9 @@ def render_vis(
 
     images = []
     try:
-        for i in tqdm(range(1, max(thresholds) + 1)):
+        for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
+            iterNum = i
+            
             def closure():
                 optimizer.zero_grad()
                 try:
@@ -117,7 +119,7 @@ def render_vis(
                     print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
                     if show_inline:
                         show(image)
-                    images.append(image)
+                images.append(image)
     except KeyboardInterrupt:
         print("Interrupted optimization at step {:d}.".format(i))
         if verbose:
