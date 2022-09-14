@@ -32,7 +32,7 @@ def render_vis(
     param_f=None,
     optimizer=None,
     transforms=None,
-    thresholds=(512,),
+    thresholds=(300,),
     verbose=False,
     preprocess=True,
     progress=True,
