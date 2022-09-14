@@ -32,7 +32,7 @@ def render_vis(
     param_f=None,
     optimizer=None,
     transforms=None,
-    thresholds=(200,),
+    thresholds=(150,),
     verbose=False,
     preprocess=True,
     progress=True,
@@ -117,7 +117,7 @@ def render_vis(
                     print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
                     if show_inline:
                         show(image)
-                images.append(image)
+                    images.append(image)
     except KeyboardInterrupt:
         print("Interrupted optimization at step {:d}.".format(i))
         if verbose:
