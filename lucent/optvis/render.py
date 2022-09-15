@@ -93,7 +93,6 @@ def render_vis(
         images.append(image)
         
         for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
-            images.append(image)
             
             def closure():
                 optimizer.zero_grad()
@@ -121,7 +120,7 @@ def render_vis(
                     print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
                     if show_inline:
                         show(image)
-                images.append(image)
+            images.append(image)
                 
     except KeyboardInterrupt:
         print("Interrupted optimization at step {:d}.".format(i))
