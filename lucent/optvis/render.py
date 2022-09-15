@@ -32,7 +32,7 @@ def render_vis(
     param_f=None,
     optimizer=None,
     transforms=None,
-    thresholds=(512,),
+    thresholds=(200,),
     verbose=False,
     preprocess=True,
     progress=True,
@@ -91,7 +91,10 @@ def render_vis(
     images = []
     try:
         for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
-            iterNum = i
+            
+            def iterNum():
+              iterNumVal = i
+              return iterNumVal
             
             def closure():
                 optimizer.zero_grad()
