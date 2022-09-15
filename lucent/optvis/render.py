@@ -92,10 +92,6 @@ def render_vis(
     try:
         for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
             
-            def iterNum():
-              iterNumVal = i
-              return iterNumVal
-            
             def closure():
                 optimizer.zero_grad()
                 try:
@@ -121,8 +117,9 @@ def render_vis(
                 if verbose:
                     print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
                     if show_inline:
-                        show(image)
-                images.append(image)
+                        show(tensor_to_img_array(image_f()))
+                images.append(tensor_to_img_array(image_f()))
+                
     except KeyboardInterrupt:
         print("Interrupted optimization at step {:d}.".format(i))
         if verbose:
