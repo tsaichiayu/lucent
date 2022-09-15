@@ -89,9 +89,7 @@ def render_vis(
         print("Initial loss: {:.3f}".format(objective_f(hook)))
 
     images = []
-    try:
-
-        
+    try:  
         for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
             images.append(image)
             
