@@ -32,7 +32,7 @@ def render_vis(
     param_f=None,
     optimizer=None,
     transforms=None,
-    thresholds=(512,),
+    thresholds=(200,),
     verbose=False,
     preprocess=True,
     progress=True,
@@ -41,6 +41,7 @@ def render_vis(
     image_name=None,
     show_inline=False,
     fixed_image_size=None,
+    iteration = 0,
 ):
     if param_f is None:
         param_f = lambda: param.image(128)
@@ -89,9 +90,8 @@ def render_vis(
         print("Initial loss: {:.3f}".format(objective_f(hook)))
 
     images = []
-    try:  
+    try:
         for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
-            images.append(image)
             
             def closure():
                 optimizer.zero_grad()
@@ -118,9 +118,14 @@ def render_vis(
                 if verbose:
                     print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
                     if show_inline:
-                        show(image)
-            images.append(image)
-                
+                        show(tensor_to_img_array(image_f()))
+                images.append(tensor_to_img_array(image_f()))
+
+    except iteration % 20 == 0:
+        if verbose:
+            print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
+        images.append(tensor_to_img_array(image_f()))
+
     except KeyboardInterrupt:
         print("Interrupted optimization at step {:d}.".format(i))
         if verbose:
